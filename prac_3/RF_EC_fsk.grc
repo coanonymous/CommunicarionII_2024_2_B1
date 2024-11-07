@@ -54,7 +54,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [263, 11]
+    coordinate: [280, 8.0]
     rotation: 0
     state: enabled
 - name: fc
@@ -505,7 +505,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [844, 832]
+    coordinate: [840, 824.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -667,7 +667,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [841, 750]
+    coordinate: [840, 736.0]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0
@@ -1055,7 +1055,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [844, 661]
+    coordinate: [840, 632.0]
     rotation: 0
     state: true
 - name: virtual_sink_0_0
