@@ -1,0 +1,358 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: P1_G8
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: P1_grupo8
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: float
+    vector: (1, 1, 1)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 124.0]
+    rotation: 0
+    state: true
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nclass blk (gr. sync_block ):\n\n\tdef __init__ ( self\
+      \ ) : # only default arguments here\n\t    gr.sync_block.__init__(\n\t     \
+      \   self,\n\t\tname ='e_Acum', # will show up in GRC\n\t\tin_sig =[ np.float32\
+      \ ],\n\t\tout_sig =[ np.float32 ]\n\t     )\n\t     \n\tdef work (self,input_items,\
+      \ output_items):\n\t    x = input_items [0] # Senial de entrada.\n\t    y0 =\
+      \ output_items [0] # Senial acumulada\n\t    y0[:] = np.cumsum (x)\n       \
+      \     \n            \n            \n\t    return len (y0) \n\t\t\n\t\t\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('e_Acum', 'blk', [], [('0', 'float', 1)], [('0', 'float', 1)], '',
+      [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 168.0]
+    rotation: 0
+    state: true
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\nclass blk(gr.sync_block):\n    def __init__(self):\
+      \  # solo argumentos predeterminados aqu\xED\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='e_Diff',  # se mostrar\xE1 en GRC\n  \
+      \          in_sig=[np.float32],\n            out_sig=[np.float32]\n        )\n\
+      \        self.acum_anterior = 0\n\n    def work(self, input_items, output_items):\n\
+      \        x = input_items[0]  # Se\xF1al de entrada.\n        y0 = output_items[0]\
+      \  # Se\xF1al acumulada diferencial\n\n        N = len(x)\n        diff = np.cumsum(x)\
+      \ - self.acum_anterior\n        self.acum_anterior = diff[-1]  # Puede usar\
+      \ diff[-1] en lugar de diff[N-1]\n        y0[:] = diff\n\n        return len(output_items[0])\
+      \  # Retorna el tama\xF1o del buffer de salida\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('e_Diff', 'blk', [], [('0', 'float', 1)], [('0', 'float', 1)], '',
+      [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 256.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_2
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\nclass blk(gr.sync_block):\n    def __init__(self):\
+      \  # solo argumentos predeterminados aqu\xED\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='e_Mean',  # se mostrar\xE1 en GRC\n  \
+      \          in_sig=[np.float32],\n            out_sig=[np.float32]\n        )\n\
+      \        \n    def work(self, input_items, output_items):\n        x = input_items[0]\
+      \  # Se\xF1al de entrada.\n        y0 = output_items[0]  # Se\xF1al acumulada\n\
+      \n        # Calcula la suma acumulativa y luego divide por el \xEDndice + 1\
+      \ para el promedio\n        cumsum_x = np.cumsum(x)\n        y0[:] = cumsum_x\
+      \ / (np.arange(len(x)) + 1)\n        \n\n        return len(output_items[0])\
+      \  # Retorna el tama\xF1o del buffer de salida\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('e_Mean', 'blk', [], [('0', 'float', 1)], [('0', 'float', 1)], '',
+      [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 328.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_number_sink_0
+  id: qtgui_number_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    autoscale: 'False'
+    avg: '0'
+    color1: ("black", "black")
+    color10: ("black", "black")
+    color2: ("black", "black")
+    color3: ("black", "black")
+    color4: ("black", "black")
+    color5: ("black", "black")
+    color6: ("black", "black")
+    color7: ("black", "black")
+    color8: ("black", "black")
+    color9: ("black", "black")
+    comment: ''
+    factor1: '1'
+    factor10: '1'
+    factor2: '1'
+    factor3: '1'
+    factor4: '1'
+    factor5: '1'
+    factor6: '1'
+    factor7: '1'
+    factor8: '1'
+    factor9: '1'
+    graph_type: qtgui.NUM_GRAPH_HORIZ
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    max: '10000'
+    min: '-10000'
+    name: '"Salida Acum"'
+    nconnections: '1'
+    type: float
+    unit1: ''
+    unit10: ''
+    unit2: ''
+    unit3: ''
+    unit4: ''
+    unit5: ''
+    unit6: ''
+    unit7: ''
+    unit8: ''
+    unit9: ''
+    update_time: '0.10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1216, 132.0]
+    rotation: 0
+    state: true
+- name: qtgui_number_sink_1
+  id: qtgui_number_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    autoscale: 'False'
+    avg: '0'
+    color1: ("black", "black")
+    color10: ("black", "black")
+    color2: ("black", "black")
+    color3: ("black", "black")
+    color4: ("black", "black")
+    color5: ("black", "black")
+    color6: ("black", "black")
+    color7: ("black", "black")
+    color8: ("black", "black")
+    color9: ("black", "black")
+    comment: ''
+    factor1: '1'
+    factor10: '1'
+    factor2: '1'
+    factor3: '1'
+    factor4: '1'
+    factor5: '1'
+    factor6: '1'
+    factor7: '1'
+    factor8: '1'
+    factor9: '1'
+    graph_type: qtgui.NUM_GRAPH_HORIZ
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    max: '10000'
+    min: '-10000'
+    name: '"Salida Mean"'
+    nconnections: '1'
+    type: float
+    unit1: ''
+    unit10: ''
+    unit2: ''
+    unit3: ''
+    unit4: ''
+    unit5: ''
+    unit6: ''
+    unit7: ''
+    unit8: ''
+    unit9: ''
+    update_time: '0.10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 500.0]
+    rotation: 0
+    state: true
+- name: qtgui_number_sink_2
+  id: qtgui_number_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    autoscale: 'False'
+    avg: '0'
+    color1: ("black", "black")
+    color10: ("black", "black")
+    color2: ("black", "black")
+    color3: ("black", "black")
+    color4: ("black", "black")
+    color5: ("black", "black")
+    color6: ("black", "black")
+    color7: ("black", "black")
+    color8: ("black", "black")
+    color9: ("black", "black")
+    comment: ''
+    factor1: '1'
+    factor10: '1'
+    factor2: '1'
+    factor3: '1'
+    factor4: '1'
+    factor5: '1'
+    factor6: '1'
+    factor7: '1'
+    factor8: '1'
+    factor9: '1'
+    graph_type: qtgui.NUM_GRAPH_HORIZ
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    max: '10000'
+    min: '-10000'
+    name: '"Salida Diff"'
+    nconnections: '1'
+    type: float
+    unit1: ''
+    unit10: ''
+    unit2: ''
+    unit3: ''
+    unit4: ''
+    unit5: ''
+    unit6: ''
+    unit7: ''
+    unit8: ''
+    unit9: ''
+    update_time: '0.10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1216, 336.0]
+    rotation: 0
+    state: true
+
+connections:
+- [blocks_vector_source_x_0, '0', epy_block_0, '0']
+- [blocks_vector_source_x_0, '0', epy_block_1, '0']
+- [blocks_vector_source_x_0, '0', epy_block_2, '0']
+- [epy_block_0, '0', qtgui_number_sink_0, '0']
+- [epy_block_1, '0', qtgui_number_sink_2, '0']
+- [epy_block_2, '0', qtgui_number_sink_1, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.9.8.0
